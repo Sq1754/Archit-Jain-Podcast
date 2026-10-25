@@ -92,6 +92,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, 
               Episodes
             </button>
             <button
+              onClick={() => scrollToSection('book-section')}
+              className="text-neutral-300 hover:text-[#e8905b] transition-colors duration-200 flex items-center gap-1.5"
+            >
+              <span>Book</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#c76b35]/20 text-[#e8905b] font-bold border border-[#c76b35]/30">Featured</span>
+            </button>
+            <button
               onClick={() => scrollToSection('about-section')}
               className="text-neutral-300 hover:text-[#D4FF00] transition-colors duration-200"
             >
@@ -209,6 +216,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, 
               className="text-left py-2 text-base font-semibold text-neutral-200 hover:text-[#D4FF00]"
             >
               Episodes
+            </button>
+            <button
+              onClick={() => scrollToSection('book-section')}
+              className="text-left py-2 text-base font-semibold text-neutral-200 hover:text-[#e8905b] flex items-center justify-between"
+            >
+              <span>Book: India Nahi, Bharat Bolo</span>
+              <span className="text-xs px-2 py-0.5 rounded bg-[#c76b35]/20 text-[#e8905b] font-bold border border-[#c76b35]/30">Featured</span>
             </button>
             <button
               onClick={() => scrollToSection('about-section')}

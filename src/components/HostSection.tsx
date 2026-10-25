@@ -122,15 +122,21 @@ export const HostSection: React.FC<HostSectionProps> = ({ onOpenContact }) => {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-neutral-900/70 border border-neutral-800/80 hover:border-neutral-700 transition-colors">
+              <div 
+                onClick={() => document.getElementById('book-section')?.scrollIntoView({ behavior: 'smooth' })}
+                className="p-4 rounded-xl bg-neutral-900/70 border border-neutral-800/80 hover:border-[#c76b35]/60 transition-all cursor-pointer group"
+              >
                 <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-[#D4FF00]/10 text-[#D4FF00]">
+                  <div className="p-2 rounded-lg bg-[#c76b35]/15 text-[#e8905b] group-hover:scale-110 transition-transform">
                     <BookOpen className="w-5 h-5" />
                   </div>
                   <div>
-                    <h5 className="font-bold text-white text-sm">Published Author</h5>
+                    <div className="flex items-center gap-2">
+                      <h5 className="font-bold text-white text-sm group-hover:text-[#e8905b] transition-colors">Published Author</h5>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#c76b35]/20 text-[#e8905b] font-medium">Read Online</span>
+                    </div>
                     <p className="text-xs text-neutral-400 mt-0.5">
-                      Author of the critically acclaimed work <em>"India Nahi Bharat Bolo"</em>.
+                      Author of <em>"इंडिया नहीं, भारत बोलो" (India Nahi Bharat Bolo)</em>.
                     </p>
                   </div>
                 </div>

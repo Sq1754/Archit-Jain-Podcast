@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroCarousel } from './components/HeroCarousel';
 import { ShelfRow } from './components/ShelfRow';
+import { BookSection } from './components/BookSection';
 import { HostSection } from './components/HostSection';
 import { SubscribeBand } from './components/SubscribeBand';
 import { Footer } from './components/Footer';
@@ -15,6 +16,26 @@ export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('All');
+
+  // Check for book hash or direct path on mount
+  useEffect(() => {
+    const handleInitialHash = () => {
+      const hash = window.location.hash.toLowerCase();
+      const pathname = window.location.pathname.toLowerCase();
+      if (hash === '#book' || hash === '#book-section' || pathname.includes('india-nahi-bharat-bolo')) {
+        setTimeout(() => {
+          const el = document.getElementById('book-section');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 300);
+      }
+    };
+
+    handleInitialHash();
+    window.addEventListener('hashchange', handleInitialHash);
+    return () => window.removeEventListener('hashchange', handleInitialHash);
+  }, []);
 
   // Categories for the shelves
   const latestEpisodes = [...EPISODES_DATA].sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
@@ -123,13 +144,16 @@ export default function App() {
         )}
       </main>
 
-      {/* 4. ABOUT / HOST SECTION */}
+      {/* 4. FEATURED BOOK SECTION: इंडिया नहीं, भारत बोलो */}
+      <BookSection />
+
+      {/* 5. ABOUT / HOST SECTION */}
       <HostSection onOpenContact={() => setIsContactOpen(true)} />
 
-      {/* 5. SUBSCRIBE CTA BAND */}
+      {/* 6. SUBSCRIBE CTA BAND */}
       <SubscribeBand />
 
-      {/* 6. FOOTER */}
+      {/* 7. FOOTER */}
       <Footer />
 
       {/* Modals */}

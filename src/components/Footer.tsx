@@ -41,6 +41,13 @@ export const Footer: React.FC = () => {
               Episodes
             </button>
             <button
+              onClick={() => scrollToSection('book-section')}
+              className="hover:text-[#e8905b] transition-colors flex items-center gap-1"
+            >
+              <span>Book</span>
+              <span className="text-[10px] text-[#c76b35]">(Featured)</span>
+            </button>
+            <button
               onClick={() => scrollToSection('about-section')}
               className="hover:text-[#D4FF00] transition-colors"
             >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Youtube, Radio, Instagram, Twitter, Linkedin, Heart } from 'lucide-react';
+import { Play, Youtube, Radio, Instagram, Twitter, Linkedin } from 'lucide-react';
 import { CHANNEL_URL, SPOTIFY_URL, INSTAGRAM_URL, TWITTER_URL, LINKEDIN_URL } from '../data/episodes';
 
 export const Footer: React.FC = () => {
@@ -122,7 +122,7 @@ export const Footer: React.FC = () => {
         {/* Bottom copyright & developer credit */}
         <div className="pt-6 border-t border-neutral-900/80 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
           <p>
-            © {new Date().getFullYear()} Archit Jain Podcast. All rights reserved. Author of <em>"India Nahi Bharat Bolo"</em>.
+            © {new Date().getFullYear()} Archit Jain Podcast. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
@@ -135,10 +135,6 @@ export const Footer: React.FC = () => {
               <span className="text-[#D4FF00] font-semibold underline underline-offset-4 decoration-neutral-700 group-hover:decoration-[#D4FF00]">
                 sq1754
               </span>
-            </a>
-            <span className="hidden sm:inline text-neutral-700">•</span>
-            <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
-              youtube.com/@architjain9
             </a>
           </div>
         </div>

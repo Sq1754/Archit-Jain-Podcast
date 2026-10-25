@@ -1,0 +1,8 @@
+{
+  "name": "Archit Jain Podcast",
+  "description": "A cinematic OTT-style portfolio for Archit Jain Podcast covering tech, startups, policymakers, and politics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

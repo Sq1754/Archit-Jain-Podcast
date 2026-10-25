@@ -112,15 +112,25 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom copyright & disclaimer */}
+        {/* Bottom copyright & developer credit */}
         <div className="pt-6 border-t border-neutral-900/80 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
           <p>
             © {new Date().getFullYear()} Archit Jain Podcast. All rights reserved. Author of <em>"India Nahi Bharat Bolo"</em>.
           </p>
-          <div className="flex items-center gap-4">
-            <span>OTT Streaming Experience</span>
-            <span>•</span>
-            <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400">
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="https://sq1754.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-neutral-400 hover:text-[#D4FF00] font-medium transition-colors group"
+            >
+              <span>Developed by</span>
+              <span className="text-[#D4FF00] font-semibold underline underline-offset-4 decoration-neutral-700 group-hover:decoration-[#D4FF00]">
+                sq1754
+              </span>
+            </a>
+            <span className="hidden sm:inline text-neutral-700">•</span>
+            <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="hover:text-neutral-400 transition-colors">
               youtube.com/@architjain9
             </a>
           </div>

@@ -16,9 +16,19 @@ interface NavbarProps {
   onSelectCategory?: (category: string) => void;
   onOpenSearch?: () => void;
   onOpenContact?: () => void;
+  currentPage?: 'home' | 'book';
+  onNavigateHome?: (sectionId?: string) => void;
+  onNavigateBook?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, onOpenContact }) => {
+export const Navbar: React.FC<NavbarProps> = ({ 
+  onSelectCategory, 
+  onOpenSearch, 
+  onOpenContact,
+  currentPage = 'home',
+  onNavigateHome,
+  onNavigateBook
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -35,11 +45,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
+  const handleNavClick = (sectionId?: string) => {
     setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigateHome) {
+      onNavigateHome(sectionId);
+    } else if (sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleBookClick = () => {
+    setMobileMenuOpen(false);
+    if (onNavigateBook) {
+      onNavigateBook();
+    } else {
+      handleNavClick('book-section');
     }
   };
 
@@ -56,12 +79,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, 
         <div className="flex items-center justify-between">
           {/* Logo / Wordmark */}
           <a 
-            href="#hero" 
+            href="/" 
             onClick={(e) => {
               e.preventDefault();
-              scrollToSection('hero');
+              handleNavClick('hero');
             }}
-            className="flex items-center gap-3 group focus:outline-none"
+            className="flex items-center gap-3 group focus:outline-none cursor-pointer"
             aria-label="Archit Jain Podcast Home"
           >
             <div className="w-9 h-9 rounded-lg bg-[#D4FF00] flex items-center justify-center text-black font-black text-lg shadow-[0_0_16px_rgba(212,255,0,0.4)] group-hover:scale-105 transition-transform duration-200">
@@ -80,32 +103,36 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center space-x-7 text-sm font-medium">
             <button
-              onClick={() => scrollToSection('hero')}
-              className="text-neutral-300 hover:text-[#D4FF00] transition-colors duration-200"
+              onClick={() => handleNavClick('hero')}
+              className={`transition-colors duration-200 ${
+                currentPage === 'home' ? 'text-white hover:text-[#D4FF00]' : 'text-neutral-400 hover:text-white'
+              }`}
             >
               Home
             </button>
             <button
-              onClick={() => scrollToSection('episodes-section')}
+              onClick={() => handleNavClick('episodes-section')}
               className="text-neutral-300 hover:text-[#D4FF00] transition-colors duration-200"
             >
               Episodes
             </button>
             <button
-              onClick={() => scrollToSection('book-section')}
-              className="text-neutral-300 hover:text-[#e8905b] transition-colors duration-200 flex items-center gap-1.5"
+              onClick={handleBookClick}
+              className={`transition-colors duration-200 flex items-center gap-1.5 ${
+                currentPage === 'book' ? 'text-[#e8905b] font-bold' : 'text-neutral-300 hover:text-[#e8905b]'
+              }`}
             >
               <span>Book</span>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#c76b35]/20 text-[#e8905b] font-bold border border-[#c76b35]/30">Featured</span>
             </button>
             <button
-              onClick={() => scrollToSection('about-section')}
+              onClick={() => handleNavClick('about-section')}
               className="text-neutral-300 hover:text-[#D4FF00] transition-colors duration-200"
             >
               About
             </button>
             <button
-              onClick={() => onOpenContact ? onOpenContact() : scrollToSection('subscribe-section')}
+              onClick={() => onOpenContact ? onOpenContact() : handleNavClick('subscribe-section')}
               className="text-neutral-300 hover:text-[#D4FF00] transition-colors duration-200"
             >
               Contact
@@ -206,26 +233,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, 
         <div className="md:hidden bg-[#0A0A0A]/98 border-b border-neutral-800 px-5 pt-3 pb-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
           <nav className="flex flex-col space-y-3 pt-2">
             <button
-              onClick={() => scrollToSection('hero')}
-              className="text-left py-2 text-base font-semibold text-neutral-200 hover:text-[#D4FF00]"
+              onClick={() => handleNavClick('hero')}
+              className={`text-left py-2 text-base font-semibold transition-colors ${
+                currentPage === 'home' ? 'text-[#D4FF00]' : 'text-neutral-200 hover:text-[#D4FF00]'
+              }`}
             >
               Home
             </button>
             <button
-              onClick={() => scrollToSection('episodes-section')}
+              onClick={() => handleNavClick('episodes-section')}
               className="text-left py-2 text-base font-semibold text-neutral-200 hover:text-[#D4FF00]"
             >
               Episodes
             </button>
             <button
-              onClick={() => scrollToSection('book-section')}
-              className="text-left py-2 text-base font-semibold text-neutral-200 hover:text-[#e8905b] flex items-center justify-between"
+              onClick={handleBookClick}
+              className={`text-left py-2 text-base font-semibold flex items-center justify-between ${
+                currentPage === 'book' ? 'text-[#e8905b]' : 'text-neutral-200 hover:text-[#e8905b]'
+              }`}
             >
               <span>Book: India Nahi, Bharat Bolo</span>
               <span className="text-xs px-2 py-0.5 rounded bg-[#c76b35]/20 text-[#e8905b] font-bold border border-[#c76b35]/30">Featured</span>
             </button>
             <button
-              onClick={() => scrollToSection('about-section')}
+              onClick={() => handleNavClick('about-section')}
               className="text-left py-2 text-base font-semibold text-neutral-200 hover:text-[#D4FF00]"
             >
               About Archit
@@ -234,7 +265,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory, onOpenSearch, 
               onClick={() => {
                 setMobileMenuOpen(false);
                 if (onOpenContact) onOpenContact();
-                else scrollToSection('subscribe-section');
+                else handleNavClick('subscribe-section');
               }}
               className="text-left py-2 text-base font-semibold text-neutral-200 hover:text-[#D4FF00]"
             >

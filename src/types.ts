@@ -6,6 +6,8 @@ export interface Episode {
   description: string;
   thumbnail: string; // REPLACE_WITH_REAL_THUMBNAIL
   youtubeUrl: string; // REPLACE_WITH_REAL_LINK
+  youtubeId?: string;
+  teaserStartTime?: number;
   featured?: boolean;
   isNew?: boolean;
   guest?: string;

@@ -2,10 +2,27 @@ import React from 'react';
 import { Play, Youtube, Radio, Instagram, Twitter, Linkedin } from 'lucide-react';
 import { CHANNEL_URL, SPOTIFY_URL, INSTAGRAM_URL, TWITTER_URL, LINKEDIN_URL } from '../data/episodes';
 
-export const Footer: React.FC = () => {
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+interface FooterProps {
+  onNavigateHome?: (sectionId?: string) => void;
+  onNavigateBook?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigateHome, onNavigateBook }) => {
+  const handleNavClick = (sectionId?: string) => {
+    if (onNavigateHome) {
+      onNavigateHome(sectionId);
+    } else if (sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleBookClick = () => {
+    if (onNavigateBook) {
+      onNavigateBook();
+    } else {
+      handleNavClick('book-section');
+    }
   };
 
   return (
@@ -14,12 +31,15 @@ export const Footer: React.FC = () => {
         
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#D4FF00] flex items-center justify-center text-black font-black">
+          <div 
+            onClick={() => handleNavClick('hero')}
+            className="flex items-center gap-3 cursor-pointer group"
+          >
+            <div className="w-8 h-8 rounded-lg bg-[#D4FF00] flex items-center justify-center text-black font-black group-hover:scale-105 transition-transform">
               <Play className="w-4 h-4 fill-black ml-0.5" />
             </div>
             <div>
-              <span className="font-heading font-extrabold text-white text-lg tracking-tight">
+              <span className="font-heading font-extrabold text-white text-lg tracking-tight group-hover:text-[#D4FF00] transition-colors">
                 ARCHIT JAIN PODCAST
               </span>
               <p className="text-xs text-neutral-500">Tech & Political Interviews from Bengaluru</p>
@@ -29,32 +49,32 @@ export const Footer: React.FC = () => {
           {/* Repeated Nav Links */}
           <nav className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-neutral-300">
             <button
-              onClick={() => scrollToSection('hero')}
+              onClick={() => handleNavClick('hero')}
               className="hover:text-[#D4FF00] transition-colors"
             >
               Home
             </button>
             <button
-              onClick={() => scrollToSection('episodes-section')}
+              onClick={() => handleNavClick('episodes-section')}
               className="hover:text-[#D4FF00] transition-colors"
             >
               Episodes
             </button>
             <button
-              onClick={() => scrollToSection('book-section')}
+              onClick={handleBookClick}
               className="hover:text-[#e8905b] transition-colors flex items-center gap-1"
             >
               <span>Book</span>
               <span className="text-[10px] text-[#c76b35]">(Featured)</span>
             </button>
             <button
-              onClick={() => scrollToSection('about-section')}
+              onClick={() => handleNavClick('about-section')}
               className="hover:text-[#D4FF00] transition-colors"
             >
               About
             </button>
             <button
-              onClick={() => scrollToSection('subscribe-section')}
+              onClick={() => handleNavClick('subscribe-section')}
               className="hover:text-[#D4FF00] transition-colors"
             >
               Subscribe

@@ -39,3 +39,16 @@ export function isValidEmail(email: string): boolean {
   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
   return emailRegex.test(email.trim());
 }
+
+/**
+ * Safely extracts and validates an 11-character YouTube video ID.
+ * Returns defaultId if none found or if format is invalid.
+ */
+export function extractYoutubeId(url?: string, fallbackId = '2pHRQdptcMs'): string {
+  if (!url || typeof url !== 'string') return fallbackId;
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/i);
+  if (match && match[1] && /^[\w-]{11}$/.test(match[1])) {
+    return match[1];
+  }
+  return fallbackId;
+}
